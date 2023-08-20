@@ -1,11 +1,30 @@
-function userInput() {
+import React, { useState } from "react";
+
+const initialUserInput = {
+  "current-savings": 10000,
+  "yearly-contribution": 1200,
+  "expected-return": 7,
+  duration: 10,
+};
+
+function UserInput() {
+  const [userInput, setUserInput] = useState(initialUserInput);
   function submitHandler(event) {
     event.preventDefault();
   }
 
-  function resetHandler() {}
+  function resetHandler() {
+    setUserInput(initialUserInput);
+  }
 
-  function inputChangeHandler(input, value) {}
+  function inputChangeHandler(input, value) {
+    setUserInput((prevInput) => {
+      return {
+        ...prevInput,
+        [input]: value,
+      };
+    });
+  }
   return (
     <form className="form" onSubmit={submitHandler}>
       <div className="input-group">
@@ -15,6 +34,7 @@ function userInput() {
             onChange={(event) =>
               inputChangeHandler("current-savings", event.target.value)
             }
+            value={userInput["current-savings"]}
             type="number"
             id="current-savings"
           />
@@ -24,6 +44,7 @@ function userInput() {
           <input
             type="number"
             id="yearly-contribution"
+            value={userInput["yearly-contribution"]}
             onChange={(event) =>
               inputChangeHandler("yearly-contribution", event.target.value)
             }
@@ -38,6 +59,7 @@ function userInput() {
           <input
             type="number"
             id="expected-return"
+            value={userInput["expected-return"]}
             onChange={(event) =>
               inputChangeHandler("expected-return", event.target.value)
             }
@@ -48,6 +70,7 @@ function userInput() {
           <input
             type="number"
             id="duration"
+            value={userInput["duration"]}
             onChange={(event) =>
               inputChangeHandler("duration", event.target.value)
             }
@@ -66,4 +89,4 @@ function userInput() {
   );
 }
 
-export default userInput;
+export default UserInput;
